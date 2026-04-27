@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/27 19:40:36 by agaasch           #+#    #+#             */
+/*   Updated: 2026/04/27 20:30:25 by agaasch          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static int	parse_positive_long(const char *str, long *out)
@@ -49,6 +61,24 @@ static int	parse_args(int argc, char **argv, t_data *data)
     return (1);
 }
 
+void	free_destroy(t_data data)
+   /* Destroy all mutexes and release heap allocations on shutdown. */
+{
+	int		i;
+
+	i = 0;
+	while (i < data.nb_philo)
+	{
+		pthread_mutex_destroy(&data.forks[i]);
+		pthread_mutex_destroy(&data.philos[i].death);
+		i++;
+	}
+	pthread_mutex_destroy(&data.print);
+	pthread_mutex_destroy(&data.death);
+	free(data.forks);
+	free(data.philos);
+}
+
 int main(int argc, char **argv)
 {
     t_data data;
@@ -84,19 +114,9 @@ int main(int argc, char **argv)
 
     /* Monitor exits once a death/completion condition is detected. */
     pthread_join(monitor_thread, NULL);
-
-    /* Destroy all mutexes and release heap allocations on shutdown. */
-    i = 0;
-    while (i < data.nb_philo)
-    {
-        pthread_mutex_destroy(&data.forks[i]);
-        pthread_mutex_destroy(&data.philos[i].death);
-        i++;
-    }
-    pthread_mutex_destroy(&data.print);
-    pthread_mutex_destroy(&data.death);
-    free(data.forks);
-    free(data.philos);
-
+	free_destroy(data);
     return 0;
 }
+
+
+/// 50 410 200 100 10
