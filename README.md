@@ -12,6 +12,15 @@ philosopher has eaten the required number of meals.
 
 ## Instructions
 
+### Installation
+
+Clone the repository from GitHub and enter the project directory:
+
+```bash
+git clone https://github.com/AlexGaasch/philo.git
+cd philo
+```
+
 ### Compilation
 
 Build the program with:
@@ -64,15 +73,34 @@ Example:
 ./philo 5 800 200 200 7
 ```
 
+### Allowed functions (42)
+
+This implementation is restricted to the following functions:
+
+* memset
+* printf
+* malloc
+* free
+* write
+* usleep
+* gettimeofday
+* pthread_create
+* pthread_detach
+* pthread_join
+* pthread_mutex_init
+* pthread_mutex_destroy
+* pthread_mutex_lock
+* pthread_mutex_unlock
+
 ## Resources
 
 * Dining Philosophers problem: https://en.wikipedia.org/wiki/Dining_philosophers_problem
+* Philosophers 42 Explained / Walktrough: https://github.com/DeRuina/philosophers
 * POSIX threads overview: https://man7.org/linux/man-pages/man7/pthreads.7.html
 * `pthread_mutex_lock` reference: https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3p.html
 * `pthread_create` reference: https://man7.org/linux/man-pages/man3/pthread_create.3.html
 * 42 project subject and course notes for the Philosophers project
+* Youtube guide to threads / race conditions / mutex: https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&index=1
 
-AI usage: AI was used to draft this README structure and to generate ideas for
-approaching the project. The code itself was not generated blindly; the final
-implementation and wording should be verified against the project source and the
-42 requirements.
+AI usage: AI was used to generate this README and to get additional
+information on how to use pthread mutexes.

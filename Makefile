@@ -4,10 +4,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 
 SRC = main.c \
-      init.c \
+	monitor.c \
       routine.c \
-      utils.c \
-      monitor.c
+	utils.c
 
 OBJ = $(SRC:.c=.o)
 
