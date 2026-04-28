@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 19:02:34 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 19:16:36 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 20:11:03 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ static int	take_forks(t_philo *philo, pthread_mutex_t *first,
 static int	do_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->death);
-	if (get_time() - philo->last_meal > philo->data->time_die)
+	if (get_time() - philo->last_meal >= philo->data->time_die)
 	{
 		pthread_mutex_unlock(&philo->death);
 		return (0);
 	}
 	philo->last_meal = get_time();
+	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->death);
 	print_status(philo, "is eating");
 	smart_sleep(philo->data->time_eat, philo->data);
-	philo->meals_eaten++;
 	return (1);
 }
 

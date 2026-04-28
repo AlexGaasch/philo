@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:44 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 19:02:26 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 20:12:25 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void	*routine(void *arg)
 	if (philo->data->nb_philo == 1)
 		return (handle_single(philo));
 	if (philo->id % 2 == 0)
-	{
-		usleep(2000);
-		smart_sleep(philo->data->time_eat, philo->data);
-	}
+		usleep(1000);
 	while ((!is_dead(philo->data)))
 	{
 		if (!eat(philo))
@@ -73,6 +70,7 @@ void	*routine(void *arg)
 		print_status(philo, "is sleeping");
 		smart_sleep(philo->data->time_sleep, philo->data);
 		print_status(philo, "is thinking");
+		usleep(500);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:36 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 19:18:10 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 19:58:22 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < data.nb_philo)
 	{
+		data.philos[i].last_meal = data.start_time;
 		pthread_create(&data.philos[i].thread, NULL, routine, &data.philos[i]);
 		i++;
 	}
-	usleep(1000);
 	pthread_create(&monitor_thread, NULL, monitor, &data);
 	i = 0;
 	while (i < data.nb_philo)
