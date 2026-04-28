@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:42 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 18:54:00 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 20:19:34 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct s_data
 	t_philo				*philos;
 }						t_data;
 
-void					init_forks(t_data *data);
-void					init_philos(t_data *data);
+int						init_forks(t_data *data);
+int						init_philos(t_data *data);
 long					get_time(void);
 void					smart_sleep(long time, t_data *data);
 void					print_status(t_philo *philo, char *msg);

@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:47 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 17:32:25 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 20:24:30 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ int	put_number(char *buf, long nb)
 	return (i);
 }
 
-void	init_forks(t_data *data)
+int	init_forks(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	if (!data->forks)
+		return (0);
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->death, NULL);
 	while (i < data->nb_philo)
@@ -53,14 +55,17 @@ void	init_forks(t_data *data)
 		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
+	return (1);
 }
 
-void	init_philos(t_data *data)
+int	init_philos(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	data->philos = malloc(sizeof(t_philo) * data->nb_philo);
+	if (!data->philos)
+		return (0);
 	while (i < data->nb_philo)
 	{
 		data->philos[i].id = i + 1;
@@ -72,6 +77,7 @@ void	init_philos(t_data *data)
 		data->philos[i].data = data;
 		i++;
 	}
+	return (1);
 }
 
 long	get_time(void)
@@ -91,6 +97,6 @@ void	smart_sleep(long time, t_data *data)
 	{
 		if (get_time() - start >= time)
 			break ;
-		usleep(50);
+		usleep(200);
 	}
 }
