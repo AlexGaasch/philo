@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:39 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 13:50:25 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 14:28:14 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	*monitor(void *arg)
 			set_dead(data);
 			return (NULL);
 		}
-		usleep(500);
+		usleep(100);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:44 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 13:45:58 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 14:28:33 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,20 @@ void	print_status(t_philo *philo, char *msg)
 
 void	eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left_fork);
-	print_status(philo, "has taken a fork");
-	pthread_mutex_lock(philo->right_fork);
-	print_status(philo, "has taken a fork");
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_status(philo, "has taken a fork");
+		pthread_mutex_lock(philo->left_fork);
+		print_status(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_status(philo, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+		print_status(philo, "has taken a fork");
+	}
 	print_status(philo, "is eating");
 	pthread_mutex_lock(&philo->death);
 	philo->last_meal = get_time();
@@ -96,7 +106,7 @@ void	*routine(void *arg)
 		return (NULL);
 	}
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		usleep(100);
 	while ((!is_dead(philo->data)))
 	{
 		eat(philo);
