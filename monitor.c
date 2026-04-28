@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:39 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 20:20:53 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 21:29:43 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	all_ate_enough(t_data *data)
 void	*died_to_time(t_data *data, int i)
 {
 	pthread_mutex_lock(&data->death);
-	set_dead(data);
+	data->dead = 1;
+	pthread_mutex_unlock(&data->death);
 	pthread_mutex_lock(&data->print);
 	printf("%ld %d died\n", get_time() - data->start_time, data->philos[i].id);
-	pthread_mutex_unlock(&data->death);
 	pthread_mutex_unlock(&data->print);
 	return (NULL);
 }
@@ -86,7 +86,7 @@ void	*monitor(void *arg)
 			set_dead(data);
 			return (NULL);
 		}
-		usleep(50);
+		usleep(100);
 	}
 	return (NULL);
 }

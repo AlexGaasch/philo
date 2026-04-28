@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:47 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 20:24:30 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 21:39:20 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ void	smart_sleep(long time, t_data *data)
 	{
 		if (get_time() - start >= time)
 			break ;
-		usleep(200);
+		usleep(100);
 	}
 }

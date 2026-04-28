@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:36 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 20:21:53 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 21:54:12 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	parse_args(int argc, char **argv, t_data *data)
 	return (1);
 }
 
-void	free_destroy(t_data data)
+int	free_destroy(t_data data)
 {
 	int	i;
 
@@ -72,6 +72,7 @@ void	free_destroy(t_data data)
 	pthread_mutex_destroy(&data.death);
 	free(data.forks);
 	free(data.philos);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -83,25 +84,22 @@ int	main(int argc, char **argv)
 	if (!parse_args(argc, argv, &data))
 		return (printf("Error\n"), 1);
 	data.dead = 0;
-	if (!init_forks(&data))
+	if (!init_forks(&data) || !init_philos(&data))
 		return (1);
 	data.start_time = get_time();
-	if (!init_philos(&data))
-		return (1);
-	i = 0;
-	while (i < data.nb_philo)
+	i = -1;
+	while (++i < data.nb_philo)
 	{
 		data.philos[i].last_meal = data.start_time;
-		if (pthread_create(&data.philos[i].thread, NULL, routine, &data.philos[i]) != 0)
+		if (pthread_create(&data.philos[i].thread, NULL, routine,
+				&data.philos[i]) != 0)
 			return (1);
-		i++;
 	}
 	if (pthread_create(&monitor_thread, NULL, monitor, &data) != 0)
 		return (1);
-	i = 0;
-	while (i < data.nb_philo)
-		pthread_join(data.philos[i++].thread, NULL);
+	i = -1;
+	while (++i < data.nb_philo)
+		pthread_join(data.philos[i].thread, NULL);
 	pthread_join(monitor_thread, NULL);
-	free_destroy(data);
-	return (0);
+	return (free_destroy(data));
 }

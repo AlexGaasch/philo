@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 19:02:34 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 20:11:03 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 21:42:51 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 static void	get_forks(t_philo *philo, pthread_mutex_t **first,
 		pthread_mutex_t **second)
 {
-	if (philo->left_fork < philo->right_fork)
-	{
-		*first = philo->left_fork;
-		*second = philo->right_fork;
-	}
-	else
+	if (philo->id % 2 == 0)
 	{
 		*first = philo->right_fork;
 		*second = philo->left_fork;
+	}
+	else
+	{
+		*first = philo->left_fork;
+		*second = philo->right_fork;
 	}
 }
 
 static int	take_forks(t_philo *philo, pthread_mutex_t *first,
 		pthread_mutex_t *second)
 {
+	if (is_dead(philo->data))
+		return (0);
 	pthread_mutex_lock(first);
 	print_status(philo, "has taken a fork");
 	if (is_dead(philo->data))
@@ -39,10 +41,13 @@ static int	take_forks(t_philo *philo, pthread_mutex_t *first,
 	}
 	pthread_mutex_lock(second);
 	print_status(philo, "has taken a fork");
+	pthread_mutex_lock(&philo->death);
+	philo->last_meal = get_time();
+	pthread_mutex_unlock(&philo->death);
 	if (is_dead(philo->data))
 	{
-		pthread_mutex_unlock(first);
 		pthread_mutex_unlock(second);
+		pthread_mutex_unlock(first);
 		return (0);
 	}
 	return (1);
@@ -51,7 +56,7 @@ static int	take_forks(t_philo *philo, pthread_mutex_t *first,
 static int	do_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->death);
-	if (get_time() - philo->last_meal >= philo->data->time_die)
+	if (is_dead(philo->data))
 	{
 		pthread_mutex_unlock(&philo->death);
 		return (0);
@@ -69,8 +74,6 @@ int	eat(t_philo *philo)
 	pthread_mutex_t	*first;
 	pthread_mutex_t	*second;
 
-	if (is_dead(philo->data))
-		return (0);
 	get_forks(philo, &first, &second);
 	if (!take_forks(philo, first, second))
 		return (0);
@@ -80,7 +83,7 @@ int	eat(t_philo *philo)
 		pthread_mutex_unlock(second);
 		return (0);
 	}
-	pthread_mutex_unlock(first);
 	pthread_mutex_unlock(second);
+	pthread_mutex_unlock(first);
 	return (1);
 }
