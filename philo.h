@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:42 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 17:32:32 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 18:54:00 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void					init_philos(t_data *data);
 long					get_time(void);
 void					smart_sleep(long time, t_data *data);
 void					print_status(t_philo *philo, char *msg);
-void					eat(t_philo *philo);
+int						eat(t_philo *philo);
 void					*routine(void *arg);
 void					*monitor(void *arg);
 int						is_dead(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:44 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 18:23:54 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 19:02:26 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	*routine(void *arg)
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->death);
 	if (philo->data->nb_philo == 1)
-		return(handle_single(philo));
+		return (handle_single(philo));
 	if (philo->id % 2 == 0)
 	{
 		usleep(2000);
@@ -68,7 +68,8 @@ void	*routine(void *arg)
 	}
 	while ((!is_dead(philo->data)))
 	{
-		eat(philo);
+		if (!eat(philo))
+			break ;
 		print_status(philo, "is sleeping");
 		smart_sleep(philo->data->time_sleep, philo->data);
 		print_status(philo, "is thinking");
