@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:36 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 15:53:32 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 17:31:32 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	parse_args(int argc, char **argv, t_data *data)
 
 void	free_destroy(t_data data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < data.nb_philo)

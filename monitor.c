@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:39 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 15:49:02 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 17:31:29 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	set_dead(t_data *data)
 
 int	all_ate_enough(t_data *data)
 {
-	int		i;
-	int		meals;
+	int	i;
+	int	meals;
 
 	i = 0;
 	if (data->must_eat == -1)
@@ -82,7 +82,7 @@ void	*monitor(void *arg)
 			set_dead(data);
 			return (NULL);
 		}
-		usleep(100);
+		usleep(50);
 	}
 	return (NULL);
 }

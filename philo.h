@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:42 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 15:06:10 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 17:32:32 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ void					*routine(void *arg);
 void					*monitor(void *arg);
 int						is_dead(t_data *data);
 void					set_dead(t_data *data);
+int						put_number(char *buf, long nb);
 
 #endif

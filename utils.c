@@ -6,15 +6,43 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:47 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/28 15:48:15 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 17:32:25 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_forks(t_data *data)
+int	put_number(char *buf, long nb)
 {
 	int		i;
+	char	tmp[20];
+	int		j;
+
+	i = 0;
+	if (nb == 0)
+	{
+		buf[i++] = '0';
+		return (i);
+	}
+	if (nb < 0)
+	{
+		buf[i++] = '-';
+		nb = -nb;
+	}
+	j = 0;
+	while (nb > 0)
+	{
+		tmp[j++] = (nb % 10) + '0';
+		nb /= 10;
+	}
+	while (j--)
+		buf[i++] = tmp[j];
+	return (i);
+}
+
+void	init_forks(t_data *data)
+{
+	int	i;
 
 	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
@@ -29,7 +57,7 @@ void	init_forks(t_data *data)
 
 void	init_philos(t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	data->philos = malloc(sizeof(t_philo) * data->nb_philo);
