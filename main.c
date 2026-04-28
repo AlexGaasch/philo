@@ -6,7 +6,7 @@
 /*   By: agaasch <agaasch@student.42luxembourg.l    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 19:40:36 by agaasch           #+#    #+#             */
-/*   Updated: 2026/04/27 20:11:24 by agaasch          ###   ########.fr       */
+/*   Updated: 2026/04/28 15:53:32 by agaasch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int	main(int argc, char **argv)
 	if (!parse_args(argc, argv, &data))
 		return (printf("Error\n"), 1);
 	data.dead = 0;
-	data.start_time = get_time();
 	init_forks(&data);
+	data.start_time = get_time();
 	init_philos(&data);
 	i = 0;
 	while (i < data.nb_philo)
@@ -92,6 +92,7 @@ int	main(int argc, char **argv)
 		pthread_create(&data.philos[i].thread, NULL, routine, &data.philos[i]);
 		i++;
 	}
+	usleep(1000);
 	pthread_create(&monitor_thread, NULL, monitor, &data);
 	i = 0;
 	while (i < data.nb_philo)
